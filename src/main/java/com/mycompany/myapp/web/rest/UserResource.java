@@ -68,6 +68,8 @@ public class UserResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+
+
     private final UserService userService;
 
     private final UserRepository userRepository;
@@ -93,7 +95,8 @@ public class UserResource {
      * @throws BadRequestAlertException {@code 400 (Bad Request)} if the login or email is already in use.
      */
     @PostMapping("/users")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "') " +
+        "or hasAuthority('" + AuthoritiesConstants.MANAGER + "')")
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) throws URISyntaxException {
         log.debug("REST request to save User : {}", userDTO);
 
